@@ -46,7 +46,7 @@ class BitCounterMultiCycleTester(counter: BitCounter, width: Int) extends PeekPo
     for (shamt <- 0 until width) yield ((n >> shamt) & 1) == 1
   }
 
-  for(idx <- 0 to 10) {
+  for(_ <- 0 to 10000) {
     val value    = next
     val expected = count(value)
 
@@ -57,7 +57,7 @@ class BitCounterMultiCycleTester(counter: BitCounter, width: Int) extends PeekPo
     step(1)
     poke(counter.io.in.valid, false)
 
-    while(peek(counter.io.out.valid) != BigInt(1)) { step(1); logger.info(s"[$idx]Waiting for valid signal...") }
+    while(peek(counter.io.out.valid) != BigInt(1)) { step(1) }
 
     expect(counter.io.out.bits, expected, s"value: $value, expect: $expected")
     expect(counter.io.out.valid, true)

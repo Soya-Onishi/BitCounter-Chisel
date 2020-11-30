@@ -3,8 +3,6 @@ package bitcounter
 import chisel3._
 import chisel3.util._
 
-import scala.annotation.tailrec
-
 class BitCounter(width: Int, stepsPerCycle: Int) extends Module {
   assert(width > 0, s"width must be larger than 0, but $width")
 
